@@ -1,66 +1,74 @@
-## Foundry
+# Foundry Fund Me
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This is the Foundry Fund Me project based on the Cyfrin Solidity Course, but modified and uploaded to my own repository.
 
-Foundry consists of:
+## 📌 Features
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+- Deploy smart contracts using Foundry
+- Test contracts with various levels (Unit, Forked, etc.)
+- Estimate gas usage and verify contracts on Etherscan
 
-## Documentation
+## 🚀 Getting Started
 
-https://book.getfoundry.sh/
+### 1. Install Requirements
 
-## Usage
+Make sure you have installed:
 
-### Build
+- [Git](https://git-scm.com/)
+- [Foundry](https://getfoundry.sh/)
 
-```shell
-$ forge build
+### 2. Clone the Repository
+
+```sh
+git clone https://github.com/mvirgiawancr/fund-meg.git
+cd repo-name
+make
 ```
 
-### Test
+### 3. Configure Environment Variables
 
-```shell
-$ forge test
+Create a `.env` file based on `.env.example`, then add:
+
+```sh
+SEPOLIA_RPC_URL=<your_rpc_url>
+PRIVATE_KEY=<your_private_key>
+ETHERSCAN_API_KEY=<your_etherscan_api_key>
 ```
 
-### Format
+## 🔧 Usage
 
-```shell
-$ forge fmt
+### 1. Deploy Smart Contract
+
+```sh
+forge script script/DeployFundMe.s.sol --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY --broadcast --verify --etherscan-api-key $ETHERSCAN_API_KEY
 ```
 
-### Gas Snapshots
+### 2. Test Contracts
 
-```shell
-$ forge snapshot
+```sh
+forge test
 ```
 
-### Anvil
+Or for forked testing:
 
-```shell
-$ anvil
+```sh
+forge test --fork-url $SEPOLIA_RPC_URL
 ```
 
-### Deploy
+### 3. Estimate Gas Usage
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+```sh
+forge snapshot
 ```
 
-### Cast
+## 📜 License
 
-```shell
-$ cast <subcommand>
-```
+This project is created for learning purposes and is free to use for further development.
 
-### Help
+## 💙 Thank You!
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+If you like this project, don't forget to ⭐ the repository on GitHub!
+
+---
+
+**Made with 💖 by Virgi**
