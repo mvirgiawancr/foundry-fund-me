@@ -20,8 +20,8 @@ Make sure you have installed:
 ### 2. Clone the Repository
 
 ```sh
-git clone https://github.com/mvirgiawancr/fund-meg.git
-cd repo-name
+git clone https://github.com/mvirgiawancr/fund-me.git
+cd fund-me
 make
 ```
 
