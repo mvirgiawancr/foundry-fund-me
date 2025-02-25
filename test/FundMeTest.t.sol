@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.19;
+
 import {Test} from "forge-std/Test.sol";
 import {FundMe} from "../src/FundMe.sol";
 import {DeployFundMe} from "../script/DeployFundMe.s.sol";
@@ -74,10 +75,7 @@ contract FundMeTest is Test {
         // Assert
         uint256 endingBalanceOwner = fundMe.getOwner().balance;
         uint256 endingBalanceFundMe = address(fundMe).balance;
-        assertEq(
-            endingBalanceOwner,
-            startingBalanceOwner + startingBalanceFundMe
-        );
+        assertEq(endingBalanceOwner, startingBalanceOwner + startingBalanceFundMe);
         assertEq(endingBalanceFundMe, 0);
         assert(address(fundMe).balance == 0);
     }
@@ -103,10 +101,7 @@ contract FundMeTest is Test {
         uint256 endingBalanceOwner = fundMe.getOwner().balance;
         uint256 endingBalanceFundMe = address(fundMe).balance;
         assert(address(fundMe).balance == 0);
-        assertEq(
-            endingBalanceOwner,
-            startingBalanceOwner + startingBalanceFundMe
-        );
+        assertEq(endingBalanceOwner, startingBalanceOwner + startingBalanceFundMe);
         assertEq(endingBalanceFundMe, 0);
     }
 }

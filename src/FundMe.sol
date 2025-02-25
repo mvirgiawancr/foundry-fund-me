@@ -1,12 +1,15 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.19;
+
 import {PriceConverter} from "./PriceConverter.sol";
 import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
+
 error NotOwner();
 
 contract FundMe {
     using PriceConverter for uint256;
+
     uint256 public constant minimumUSD = 5e18;
     address[] private s_funders;
     mapping(address => uint256) private s_addressToFunded;
@@ -19,14 +22,9 @@ contract FundMe {
     }
 
     function fund() public payable {
-        require(
-            msg.value.getConversionRate(s_priceFeed) >= minimumUSD,
-            "Didn't send enough ETH"
-        );
+        require(msg.value.getConversionRate(s_priceFeed) >= minimumUSD, "Didn't send enough ETH");
         s_funders.push(msg.sender);
-        s_addressToFunded[msg.sender] =
-            s_addressToFunded[msg.sender] +
-            msg.value;
+        s_addressToFunded[msg.sender] = s_addressToFunded[msg.sender] + msg.value;
     }
 
     function getVersion() public view returns (uint256) {
@@ -36,19 +34,13 @@ contract FundMe {
 
     function withdraw() public onlyOwner {
         uint256 fundersLength = s_funders.length;
-        for (
-            uint256 fundersIndex = 0;
-            fundersIndex < fundersLength;
-            fundersIndex++
-        ) {
+        for (uint256 fundersIndex = 0; fundersIndex < fundersLength; fundersIndex++) {
             address funder = s_funders[fundersIndex];
             s_addressToFunded[funder] = 0;
         }
         s_funders = new address[](0);
 
-        (bool callSuccess, ) = payable(msg.sender).call{
-            value: address(this).balance
-        }("");
+        (bool callSuccess,) = payable(msg.sender).call{value: address(this).balance}("");
         require(callSuccess, "Failed");
     }
 
@@ -67,12 +59,10 @@ contract FundMe {
     }
 
     /*
-   view and pure functions
-   */
+    view and pure functions
+    */
 
-    function getAddressToFunded(
-        address fundingAddress
-    ) external view returns (uint256) {
+    function getAddressToFunded(address fundingAddress) external view returns (uint256) {
         return s_addressToFunded[fundingAddress];
     }
 
